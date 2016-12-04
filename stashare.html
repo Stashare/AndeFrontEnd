@@ -1,0 +1,199 @@
+<!doctype html>
+<html>
+<head>
+  <title>Stashare</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.2/jquery.mobile-1.4.2.min.css" />
+  <link rel="stylesheet" href="custom.css" />
+  <script type="text/javascript" src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
+  <script type="text/javascript" src="http://code.jquery.com/mobile/1.4.2/jquery.mobile-1.4.2.min.js"></script>
+  
+  <script type="text/javascript">
+    
+    /*
+      Initialize the navbar and toolbars
+    */
+    
+    $(function() {
+      $( "[data-role='navbar']" ).navbar();
+      $( "[data-role='header'], [data-role='footer']" ).toolbar();
+    });
+    
+    /*
+      When the a new page is shown:
+       * Update the page title in the header
+       * Change the currently-active button in the footer's navbar
+    */
+
+    $( document ).on( "pagecontainershow", function() {
+
+      // Get the title from the visible page's data-title attribute
+      var currentPageTitle = $('body').pagecontainer('getActivePage').jqmData('title');
+      console.log(currentPageTitle);
+      
+      // Change the page title in the header
+      $("[data-role='header'] h1").text(currentPageTitle);
+      
+      // Remove active class from nav buttons
+      $("[data-role='navbar'] a.ui-btn-active").removeClass("ui-btn-active");
+      
+      // Add active class to current nav button
+      $("[data-role='navbar'] a").each(function() {
+        if ( $(this).text() === currentPageTitle ) $(this).addClass("ui-btn-active");
+      });
+      
+    });
+    
+  </script>
+    
+</head> 
+<body>
+
+  <div data-role="header" data-position="fixed" data-theme="a">
+    <h1>Home</h1>
+  </div>
+  
+  <div data-role="page" id="home" data-title="Home">
+
+    <div role="main" class="ui-content">
+
+      <div style="text-align: center;">
+        <h2>Stashare</h2>
+        <img src="images/Firebase_logo1.png" width="200" alt="Logo">
+      </div>
+
+      <p>Welcome to Stashare family! A simple site where you are going to find all our current and future projects.  Have a browse through our projects below, and have fun!</p>
+
+    </div>
+
+  </div>
+  
+  <div data-role="page" id="future" data-title="Future Projects">
+
+    <div role="main" class="ui-content">
+
+
+      <p>OOPS! Sorry for that...future projects will be posted soon.</p>
+
+    </div>
+
+  </div>
+
+
+  <div data-role="page" id="current" data-title="Current Projects">
+
+    <div role="main" class="ui-content">
+      <ul data-role="listview">
+        <li><a href="http://mydiary.stashare.co.ke">My Diary</a></li>
+        <li><a href="#">City Pals</a></li>
+      </ul>
+    </div>
+
+  </div>
+
+  <div data-role="page" id="products-lamps" data-title="Products">
+
+    <div role="main" class="ui-content">
+      <ul data-role="listview">
+        <li>
+          <img src="images/products/thumbs/moon-globe-lamp.jpg" alt="Moon Globe Lamp">
+          <h2>Moon Globe Lamp</h2>
+          <p>Creates a beautiful, relaxing light.</p>
+        </li>
+
+        <li>
+          <img src="images/products/thumbs/glowing-santa.jpg" alt="Glowing Santa of Cheer">
+          <h2>Glowing Santa of Cheer</h2>
+          <p>Ho ho ho!</p>
+        </li>
+
+        <li>
+          <img src="images/products/thumbs/fairy-lights.jpg" alt="Fabulous Fairy Lights">
+          <h2>Fabulous Fairy Lights</h2>
+          <p>Add a magical touch to any home.</p>
+        </li>
+      </ul>
+    </div>
+
+  </div>  
+
+  <div data-role="page" id="products-kitchen" data-title="Products">
+
+    <div role="main" class="ui-content">
+      <ul data-role="listview">
+        <li>
+          <img src="images/products/thumbs/milk-pan.jpg" alt="Magic Milk Pan">
+          <h2>Magic Milk Pan</h2>
+          <p>Boils milk without boiling over!</p>
+        </li>
+
+        <li>
+          <img src="images/products/thumbs/cafetiere.jpg" alt="Classy Cafeti�re">
+          <h2>Classy Cafeti�re</h2>
+          <p>Beautiful, simple, and extra strong.</p>
+        </li>
+
+        <li>
+          <img src="images/products/thumbs/whisky-glasses.jpg" alt="Elegance Whisky Glasses">
+          <h2>Elegance Whisky Glasses</h2>
+          <p>Sample your favorite tipple in style!</p>
+        </li>
+      </ul>
+    </div>
+
+  </div>  
+
+  <div data-role="page" id="contact" data-title="Contact Us">
+
+    <div role="main" class="ui-content">
+
+      <h2 style="text-align: center;">Contact Stashare</h2>
+
+      <form action="hey.php" method="post" data-transition="pop">
+
+        <div class="ui-field-contain">
+          <label for="senderName">Your Name:</label>
+          <input type="text" name="senderName" id="senderName">
+        </div>
+
+        <div class="ui-field-contain">
+          <label for="senderEmail">Your Email Address:</label>
+          <input type="email" name="senderEmail" id="senderEmail">
+        </div>
+
+        <div class="ui-field-contain">
+          <label for="productCategories">What project categories are you interested in?</label>
+          <select name="productCategories[]" id="productCategories" multiple data-native-menu="false">
+            <option value="">Select...</option>
+            <option value="Apps">Mobile Applications</option>
+            <option value="ERP">Enterprise Resource Planning System(ERP)</option>
+          </select>
+        </div>
+
+        <div class="ui-field-contain">
+          <label for="message">Your Message:</label>
+          <textarea name="message" id="message" placeholder="Please type your message" required="required" cols="80" rows="10" maxlength="10000"></textarea>
+        </div>
+
+        <input type="submit" name="sendMessage" id="sendMessage" value="Send Email">
+
+      </form>
+
+    </div>
+
+  </div>
+
+  <div data-role="footer" data-position="fixed" data-theme="a">
+    <div data-role="navbar">
+      <ul>
+        <li><a href="#home">Home</a></li>
+        <li><a href="#current">Current Projects</a></li>
+         <li><a href="#future">Future Projects</a></li>
+  
+      </ul>
+    </div>
+  </div>
+
+</body>
+</html>
